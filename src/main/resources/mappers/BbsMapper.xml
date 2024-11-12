@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="react.spring.react_spring_pjt.bbs.dao.BbsMapper">
+
+    <select id="findAllRow" resultType="bbsResponseDTO">
+        select id, title, content
+        from tb_bbs
+    </select>
+
+    <insert id="saveRow" parameterType="bbsRequestDTO">
+        insert into tb_bbs(title,content)
+        values(#{title}, #{content})
+    </insert>
+
+
+    <!-- showRow --> 
+
+    <select id="showRow" parameterType="java.util.HashMap" resultType="bbsResponseDTO">
+        select id, title, content
+        from tb_bbs
+        where id = #{id}
+    </select>    
+
+    <!-- showComments --> 
+
+    <select id="showComments" parameterType="java.util.HashMap" resultType="bbsRequestDTO">
+        select id, content, bbsid
+        from tb_comment
+        where bbsid = #{id}
+    </select>
+
+    <!-- commentSaveRow --> 
+
+    <insert id="commentSaveRow" parameterType="commentRequestDTO">
+        insert into tb_comment(content,bbsid)
+        values(#{content}, #{bbsId})
+    </insert>    
+
+    <!-- getCommentRow --> 
+
+    <select id="getCommentRow" parameterType="java.util.HashMap" resultType="bbsResponseDTO">
+        select id, content, bbsid
+        from tb_comment
+        where bbsid = #{bbsid}
+    </select>
+
+    <!-- deleteRow --> 
+
+    <delete id="deleteRow" parameterType="java.util.HashMap">
+        delete from tb_bbs
+        where id = #{id}
+    </delete>
+
+    <!-- updateRow --> 
+
+    <update id="updateRow" parameterType="java.util.HashMap">
+        update tb_bbs
+        set title = #{title} , content = #{content} 
+        where id = #{id}
+    </update>
+</mapper>
+
+
